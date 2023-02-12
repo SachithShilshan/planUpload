@@ -1,0 +1,242 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site1.master.cs" Inherits="planUploadV5.Site1" %>
+<style type="text/css">
+    .grid-view {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .grid-view th {
+            background-color: #ddd;
+            padding: 8px;
+            border: 1px solid #999;
+        }
+
+        .grid-view td {
+            padding: 8px;
+            border: 1px solid #999;
+        }
+</style>
+<style>
+    header {
+        background-color: #0a1751df;
+        color: #fff;
+        padding: 20px;
+    }
+
+        header nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        header nav li {
+            display: inline-block;
+            margin-right: 20px;
+        }
+
+        header nav a {
+            color: #fff;
+            text-decoration: none;
+        }
+</style>
+<style>
+h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+h5 {
+  font-size: 25px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+</style>
+<style>
+    .login-container {
+  width: 400px;
+  height: 500px;
+  margin: 80px auto;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 20px 0 #ccc;
+}
+
+.form-header {
+  background-color: #0a1751df;
+  color: #fff;
+  text-align: center;
+  padding: 25px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.form-header h2 {
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.form-body {
+  padding: 45px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-control {
+  width: 100%;
+  height: 40px;
+  border-radius: 25px;
+  border: none;
+  padding: 0 20px;
+  font-size: 18px;
+  box-shadow: 0 0 10px 0 #ccc;
+}
+
+.btn-submit {
+  width: 100%;
+  height: 35px;
+  border-radius: 25px;
+  border: none;
+  background-color: #0a1751df;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-submit:hover {
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 0 20px 0 #ccc;
+}
+
+</style>
+<style>
+    .file-upload {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: lightblue;
+        color: white;
+        border-radius: 4px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 16px;
+        cursor: pointer;
+        border: none;
+    }
+        .file-upload input[type="file"] {
+            display: none;
+        }
+</style>
+<style>
+    h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  padding: 20px;
+    background-color: #c2d5ea54;
+}
+h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #555;
+  text-align: left;
+  padding: 15px;
+}
+h3 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #777;
+  text-align: left;
+  padding: 10px;
+}
+</style>
+<style>
+    .button {
+        background-color: blue;
+        color: white;
+        padding: 6px 10px;
+        border-radius: 4px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+    }
+</style>
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+
+</head>
+<body>
+
+    <form id="form1" runat="server">
+        <table style="width: 100%;">
+            <tr>
+                <td>&nbsp;
+                <header>
+                    <nav>
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Plan Upload</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </nav>
+                </header>
+                </td>
+
+            </tr>
+            <tr>
+                <td>&nbsp;
+                <div>
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+                </div>
+                </td>
+
+            </tr>
+
+            <tr>
+                <td>&nbsp;
+                <asp:Label ID="Label1" runat="server" Text="Label">Hello</asp:Label>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/loginPage.aspx">Login</asp:HyperLink>
+                    <form>
+                        <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click1">Logout</asp:LinkButton>
+                    </form>
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>&nbsp;
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server"></asp:ContentPlaceHolder>
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>&nbsp;
+                <header>
+                    <nav>
+                            <h4 >Team Digital</h4>
+                    </nav>
+                </header>
+                </td>
+
+            </tr>
+        </table>
+
+    </form>
+</body>
+</html>
