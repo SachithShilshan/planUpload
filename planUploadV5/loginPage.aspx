@@ -2,7 +2,13 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <asp:Label ID="Label5" runat="server"></asp:Label>
-    <div class="login-container">
+    <table style="width: 100%;">
+        <tr>
+            <td>&nbsp;</td>
+            <td>&nbsp;
+                
+                     <div class="login-container">
+
             <div class="form-header">
                 <h5>Login</h5>
             </div>
@@ -21,6 +27,13 @@
                 
             </div>
         </div>
+                
+            </td>
+            <td>&nbsp;</td>
+    </table>
+
+    
+   
     
 </asp:Content>
  

@@ -30,6 +30,8 @@ using System.IO;
 using System.Data.OleDb;
 using System.Collections;
 using System.Runtime.InteropServices;
+using static System.Collections.Specialized.BitVector32;
+using System.Runtime.Remoting.Messaging;
 
 namespace planUploadV5
 {
@@ -48,7 +50,7 @@ namespace planUploadV5
             tablename = Request.QueryString["tablename"];
             if (tablename == null)
             {
-                tablename = "modual01";
+                tablename = "section01";
             }
             else
                 tablename = Request.QueryString["tablename"];
@@ -415,22 +417,65 @@ namespace planUploadV5
             String l_Curve1, String planning_Fab1, String planning_acc1, String approval_DD1, String section1)
         {
 
-            String query = "insert into " + tablename + " values('" + module1 + "','" + material1 + "','" + fG_Referance1 + "','" + customer_Style1
-                + "','" + Color_Description1 + "','" + subcon_Type1 + "','" + description1 + "','" + fabric_Design1 + "','" + order_Reason1
-                + "','" + special_Services1 + "','" + cpo1 + "','" + region_Country1 + "','" + name1 + "','" + season1 + "','" + external_Material_Group1
-                + "','" + customer1 + "','" + customer_Dept1 + "','" + sales_Order1 + "','" + item1 + "','" + prod_order1 + "','" + so_qty1 + "','"
-                + order_qty1 + "','" + smv1 + "','" + effi1 + "','" + emp1 + "','" + pcs_day1 + "','" + days1 + "','" + cut_date1 + "','" + startdate1
-                + "','" + finishdate1 + "','" + expected_prod_end_date1 + "','" + deliv_date1 + "','" + del_status1 + "','" + cut_qty1 + "','" + in_qty1
-                + "','" + out_qty1 + "','" + fab_In_H_date1 + "','" + acc_In_H_date1 + "','" + qco1 + "','" + product_category_Name1 + "','" + gender1
-                + "','" + relative_Similarity1 + "','" + remarks1 + "','" + l_Curve1 + "','" + planning_Fab1 + "','" + planning_acc1 + "','" + approval_DD1
-                + "','" + section1 + "')";
+            String query = "INSERT INTO " + tablename + " ( module , material , fG_Referance , customer_Style  , Color_Description , subcon_Type , description , fabric_Design , order_Reason  , special_Services , cpo , region_Country , name , season , external_Material_Group   , customer , customer_Dept , sales_Order , item , prod_order , so_qty , order_qty , smv , effi , emp , pcs_day , days , cut_date , startdate  , finishdate , expected_prod_end_date , deliv_date , del_status , cut_qty , in_qty   , out_qty , fab_In_H_date , acc_In_H_date , qco , product_category_Name , gender  , relative_Similarity , remarks , l_Curve , planning_Fab , planning_acc , approval_DD    , section ) VALUES ( @module1 ,@material1 ,@fG_Referance1 ,@customer_Style1  ,@Color_Description1 ,@subcon_Type1 ,@description1 ,@fabric_Design1 ,@order_Reason1   ,@special_Services1 ,@cpo1 ,@region_Country1 ,@name1 ,@season1 ,@external_Material_Group1,@customer1 ,@customer_Dept1 ,@sales_Order1 ,@item1 ,@prod_order1 ,@so_qty1 , @order_qty1 , @smv1 ,@effi1 ,@emp1 ,@pcs_day1 ,@days1 ,@cut_date1 ,@startdate1,@finishdate1 ,@expected_prod_end_date1 ,@deliv_date1 ,@del_status1 ,@cut_qty1 ,@in_qty1,@out_qty1 ,@fab_In_H_date1 ,@acc_In_H_date1 ,@qco1 ,@product_category_Name1 ,@gender1,@relative_Similarity1 ,@remarks1 ,@l_Curve1 ,@planning_Fab1 ,@planning_acc1 ,@approval_DD1,@section1 )";
             String mycon = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
 
             using (SqlConnection con = new SqlConnection(mycon))
             {
                 using (SqlCommand cmd = new SqlCommand(query, con))
                 {
-                    con.Open();
+                    // Add parameters
+                    cmd.Parameters.AddWithValue("@module1", module1); 
+                    cmd.Parameters.AddWithValue("@material1", material1);
+                    cmd.Parameters.AddWithValue("@fG_Referance1", fG_Referance1);
+                    cmd.Parameters.AddWithValue("@customer_Style1", customer_Style1);
+                    cmd.Parameters.AddWithValue("@Color_Description1", Color_Description1); 
+                    cmd.Parameters.AddWithValue("@subcon_Type1", subcon_Type1); 
+                    cmd.Parameters.AddWithValue("@description1", description1); 
+                    cmd.Parameters.AddWithValue("@fabric_Design1", fabric_Design1); 
+                    cmd.Parameters.AddWithValue("@order_Reason1", order_Reason1); 
+                    cmd.Parameters.AddWithValue("@special_Services1", special_Services1); 
+                    cmd.Parameters.AddWithValue("@cpo1", cpo1);
+                    cmd.Parameters.AddWithValue("@region_Country1", region_Country1); 
+                    cmd.Parameters.AddWithValue("@name1", name1); 
+                    cmd.Parameters.AddWithValue("@season1", season1); 
+                    cmd.Parameters.AddWithValue("@external_Material_Group1", external_Material_Group1);
+                    cmd.Parameters.AddWithValue("@customer1", customer1); 
+                    cmd.Parameters.AddWithValue("@customer_Dept1", customer_Dept1); 
+                    cmd.Parameters.AddWithValue("@sales_Order1", sales_Order1); 
+                    cmd.Parameters.AddWithValue("@item1", item1);
+                    cmd.Parameters.AddWithValue("@prod_order1", prod_order1); 
+                    cmd.Parameters.AddWithValue("@so_qty1", so_qty1);
+                    cmd.Parameters.AddWithValue("@order_qty1", order_qty1); 
+                    cmd.Parameters.AddWithValue("@smv1", smv1); 
+                    cmd.Parameters.AddWithValue("@effi1", effi1);
+                    cmd.Parameters.AddWithValue("@emp1", emp1); 
+                    cmd.Parameters.AddWithValue("@pcs_day1", pcs_day1);
+                    cmd.Parameters.AddWithValue("@days1", days1); 
+                    cmd.Parameters.AddWithValue("@cut_date1", cut_date1); 
+                    cmd.Parameters.AddWithValue("@startdate1", startdate1);
+                    cmd.Parameters.AddWithValue("@finishdate1", finishdate1); 
+                    cmd.Parameters.AddWithValue("@expected_prod_end_date1", expected_prod_end_date1); 
+                    cmd.Parameters.AddWithValue("@deliv_date1", deliv_date1);
+                    cmd.Parameters.AddWithValue("@del_status1", del_status1); 
+                    cmd.Parameters.AddWithValue("@cut_qty1", cut_qty1); 
+                    cmd.Parameters.AddWithValue("@in_qty1", in_qty1);
+                    cmd.Parameters.AddWithValue("@out_qty1", out_qty1); 
+                    cmd.Parameters.AddWithValue("@fab_In_H_date1", fab_In_H_date1); 
+                    cmd.Parameters.AddWithValue("@acc_In_H_date1", acc_In_H_date1);
+                    cmd.Parameters.AddWithValue("@qco1", qco1);
+                    cmd.Parameters.AddWithValue("@product_category_Name1", product_category_Name1); 
+                    cmd.Parameters.AddWithValue("@gender1", gender1);
+                    cmd.Parameters.AddWithValue("@relative_Similarity1", relative_Similarity1); 
+                    cmd.Parameters.AddWithValue("@remarks1", remarks1); 
+                    cmd.Parameters.AddWithValue("@l_Curve1", l_Curve1); 
+                    cmd.Parameters.AddWithValue("@planning_Fab1", planning_Fab1);
+                    cmd.Parameters.AddWithValue("@planning_acc1", planning_acc1); 
+                    cmd.Parameters.AddWithValue("@approval_DD1", approval_DD1);
+                    cmd.Parameters.AddWithValue("@section1", section1);
+    
+
+                        con.Open();
                     try
                     {
                         using (SqlDataReader dr = cmd.ExecuteReader())
