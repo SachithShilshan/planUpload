@@ -19,7 +19,7 @@ namespace planUploadV5
         }
         protected void Button1_Click(object sender, EventArgs e)
         {
-            String mycon = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
+            String mycon = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=Admin;Integrated Security=True";
             SqlConnection scon=new SqlConnection(mycon);
             String myquery = "select * from loginDetails";
             SqlCommand cmd = new SqlCommand();

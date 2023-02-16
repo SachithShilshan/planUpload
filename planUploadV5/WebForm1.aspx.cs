@@ -14,9 +14,17 @@ namespace planUploadV5
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
             string tablename = Request.QueryString["tablename"];
+            if (tablename == null)
+            {
+                tablename = "modual01";
+            }
+            else
+                tablename = Request.QueryString["tablename"];
+
             String mycon = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
-            String myquery = "SELECT * FROM " + tablename ;
+            String myquery = "SELECT * FROM " + tablename;
             SqlConnection con = new SqlConnection(mycon);
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = myquery;
@@ -80,7 +88,7 @@ namespace planUploadV5
         protected void GridView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             GridViewRow gr = GridView1.SelectedRow;
-            
+
         }
-    }
+    }       
 }

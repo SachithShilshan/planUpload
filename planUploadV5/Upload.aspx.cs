@@ -29,7 +29,14 @@ namespace planUploadV5
 
         public void Page_Load(object sender, EventArgs e)
         {
-             tablename = Request.QueryString["tablename"];
+
+            tablename = Request.QueryString["tablename"];
+            if (tablename == null)
+            {
+                tablename = "modual01";
+            }
+            else
+                tablename = Request.QueryString["tablename"];
             String mycon = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
             String myquery = "SELECT * FROM " + tablename;
             SqlConnection con = new SqlConnection(mycon);
@@ -405,12 +412,30 @@ namespace planUploadV5
                 + "','" + relative_Similarity1 + "','" + remarks1 + "','" + l_Curve1 + "','" + planning_Fab1 + "','" + planning_acc1 + "','" + approval_DD1
                 + "','" + section1 + "')";
             String mycon = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
-            SqlConnection con = new SqlConnection(mycon);
-            con.Open();
-            SqlCommand cmd = new SqlCommand();
-            cmd.CommandText = query;
-            cmd.Connection = con;
-            cmd.ExecuteNonQuery();
+            
+            using (SqlConnection con = new SqlConnection(mycon))
+            {
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    con.Open();
+                    try {
+                        using (SqlDataReader dr = cmd.ExecuteReader())
+                        {
+                            //do stuff;
+                            dr.Close();
+                        }
+                    } finally { con.Close(); }
+                    
+                }
+                con.Close();
+            }
+
+           // SqlConnection con = new SqlConnection(mycon);
+           // con.Open();
+           // SqlCommand cmd = new SqlCommand();
+          //  cmd.CommandText = query;
+            //cmd.Connection = con;
+            //cmd.ExecuteNonQuery();
 
         }
 

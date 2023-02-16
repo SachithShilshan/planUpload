@@ -25,7 +25,7 @@
                 <asp:FileUpload runat="server" ID="FileUpload2" class="file-upload"></asp:FileUpload>
                 <asp:Button CssClass="button" runat="server" Text="Upload" OnClick="Delete_Upload_Click"></asp:Button>
                 <h3>Table</h3>
-                <div STYLE="overflow: auto; width:1200; height:500;">
+                <div>
                 <asp:GridView runat="server" ID="GridView" AllowPaging="True" PageSize="5" CssClass="grid-view"></asp:GridView>
                 </div>
             </asp:Label>

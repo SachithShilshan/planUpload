@@ -33,8 +33,90 @@
 </style>
 
 
+<style>
+    .button-list ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
 
+    .button-list li {
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
 
+        .button-list li a {
+            display: block;
+            width: 200px;
+            height: 50px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            line-height: 50px;
+            text-decoration: none;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+            .button-list li a:hover {
+                background-color: #0056b3;
+            }
+</style>
+
+<style>
+    .box {
+        background-color: #f2f2f2;
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .box:hover {
+            transform: scale(1.05);
+        }
+</style>
+
+<style>
+    table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 10px 0;
+  font-size: 16px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.01);
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  
+}
+
+th {
+  background-color: #3498db;
+  color: #fff;
+  font-weight: bold;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #e5e5e5;
+}
+
+caption {
+  text-align: left;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+</style>
 
 <!DOCTYPE html>
 
@@ -44,27 +126,58 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <table style="width: 100%;">
+
+        <table>
+
             <tr>
-                <td>&nbsp;
+                
+                <td>
+                     
+                    <td>&nbsp;
+                        <div class="box">
+                    <div class="button-list">
+                        <ul>
+                            <li><a href="https://localhost:44337/WebForm1.aspx?tablename=section01">Section 1</a></li>
+                            <li><a href="https://localhost:44337/WebForm1.aspx?tablename=section02">Section 2</a></li>
+                            <li><a href="https://localhost:44337/WebForm1.aspx?tablename=section03">Section 3</a></li>
+                            <li><a href="https://localhost:44337/WebForm1.aspx?tablename=section04">Section 4</a></li>
+                            <li><a href="https://localhost:44337/WebForm1.aspx?tablename=section05">Section 5</a></li>
+                            <li><a href="https://localhost:44337/WebForm1.aspx?tablename=section06">Section 6</a></li>
+                            <li><a href="https://localhost:44337/WebForm1.aspx?tablename=section07">Section 7</a></li>
+                            <li><a href="https://localhost:44337/WebForm1.aspx?tablename=section08">Section 8</a></li>
+                        </ul>
+                    </div>
+ </div>
+                    </td>
+                        
+                </td>
+                
+                <td colspan="2">
+                    <table>
+                        <tr>
+                            <td colspan="2">
+                                <table>
+                                    <tr>
+
+                                        <td>&nbsp;
+                    <asp:Button CssClass="button" runat="server" Text="Export" OnClick="ViewDataClick"></asp:Button>
+                                        </td>
+
+                                        <td>&nbsp;
                     <div>
                         <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/AdminHome.aspx">AdminHome</asp:HyperLink>
                     </div>
-                </td>
-                <td>&nbsp;
-                    
-                </td>
-            </tr>
-            <tr>
-                <td>&nbsp;
-                    <asp:Button CssClass="button" runat="server" Text="Export" OnClick="ViewDataClick"></asp:Button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
 
-                </td>
-                <td>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>&nbsp;
-                     <div STYLE="overflow: auto; width:1200; height:500;">
+                        </tr>
+
+                        <tr>
+                            <td>&nbsp;
+                                 <div class="box">
+                     <div style="overflow: auto; width: 1000; height: 500;">
                          <asp:GridView ID="GridView1" runat="server" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" CssClass="grid-view">
 
                              <Columns>
@@ -119,11 +232,14 @@
                              </Columns>
                          </asp:GridView>
                      </div>
+                                     </div>
+                            </td>
+
+                        </tr>
+                    </table>
                 </td>
-                <td>&nbsp;</td>
             </tr>
         </table>
-
 
 
 
