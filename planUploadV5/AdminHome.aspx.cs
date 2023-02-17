@@ -41,10 +41,10 @@ namespace planUploadV5
 
         public void Page_Load(object sender, EventArgs e)
         {
-            /*if (Session["username"] == null)
+            if (Session["username"] == null)
             {
                 Response.Redirect("LoginPage.aspx");
-            }*/
+            }
             //tablename = "modual01";
 
             tablename = Request.QueryString["tablename"];
@@ -137,6 +137,7 @@ namespace planUploadV5
 
             if (FileUpload.HasFile)
             {
+                deleteTable();
                     String path = Path.GetFileName(FileUpload.FileName);
                     path = path.Replace(" ", "");
                     FileUpload.SaveAs(Server.MapPath("~/ExcelFile/") + path);
@@ -522,6 +523,21 @@ namespace planUploadV5
         {
 
             String query1 = "SELECT * FROM " + tablename + " ORDER BY RIGHT(module, 3) ASC";
+            String mycon1 = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
+            SqlConnection con1 = new SqlConnection(mycon1);
+            con1.Open();
+            SqlCommand cmd1 = new SqlCommand();
+            cmd1.CommandText = query1;
+            cmd1.Connection = con1;
+            cmd1.ExecuteNonQuery();
+
+        }
+
+        private void deleteTable()
+        {
+            
+
+            String query1 = "DELETE FROM " + tablename;
             String mycon1 = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
             SqlConnection con1 = new SqlConnection(mycon1);
             con1.Open();
