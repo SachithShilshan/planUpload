@@ -163,9 +163,9 @@ caption {
                     <asp:Button CssClass="button" runat="server" Text="Export" OnClick="ViewDataClick"></asp:Button>
                                         </td>
 
-                                        <td>&nbsp;
+                                        <td style="text-align: right;">&nbsp;
                     <div>
-                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/AdminHome.aspx">AdminHome</asp:HyperLink>
+                        <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/AdminHome.aspx" CssClass="button" >AdminHome</asp:HyperLink>
                     </div>
                                         </td>
                                     </tr>
@@ -177,7 +177,7 @@ caption {
                         <tr>
                             <td>&nbsp;
                                  <div class="box">
-                     <div style="overflow: auto; width: 1000; height: 500;">
+                     <div style="overflow: auto; width: 1100; height: 500;">
                          <asp:GridView ID="GridView1" runat="server" OnSelectedIndexChanged="GridView1_SelectedIndexChanged" AutoGenerateColumns="False" CssClass="grid-view">
 
                              <Columns>
