@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.IO;
+using System.Reflection.Emit;
 
 namespace planUploadV5
 {
@@ -18,10 +19,12 @@ namespace planUploadV5
             string tablename = Request.QueryString["tablename"];
             if (tablename == null)
             {
-                tablename = "modual01";
+                tablename = "section01";
             }
             else
                 tablename = Request.QueryString["tablename"];
+
+            Label1.Text = "Welcome to " + tablename;
 
             String mycon = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
             String myquery = "SELECT * FROM " + tablename;

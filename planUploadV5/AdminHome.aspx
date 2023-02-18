@@ -103,7 +103,7 @@
 
                                  <asp:Button CssClass="button" runat="server" Text="Export" OnClick="ViewDataClick"></asp:Button>
                                  <div style="overflow: auto; width: 1100; height: 500;">
-                                     <asp:GridView runat="server" ID="GridView1" AutoGenerateColumns="false" CellPadding="4" ForeColor="#333333" Width="600px" CssClass="grid-view" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
+                                     <asp:GridView runat="server" ID="GridView1"  AutoGenerateColumns="false" CellPadding="4" ForeColor="#333333" Width="600px" CssClass="grid-view" OnSelectedIndexChanged="GridView1_SelectedIndexChanged">
                                          <Columns>
                                              <asp:BoundField DataField="module" HeaderText="module" SortExpression="module"></asp:BoundField>
                                              <asp:BoundField DataField="material" HeaderText="material" SortExpression="material"></asp:BoundField>

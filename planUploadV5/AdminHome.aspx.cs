@@ -32,6 +32,7 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using static System.Collections.Specialized.BitVector32;
 using System.Runtime.Remoting.Messaging;
+using System.Globalization;
 
 namespace planUploadV5
 {
@@ -41,10 +42,10 @@ namespace planUploadV5
 
         public void Page_Load(object sender, EventArgs e)
         {
-            if (Session["username"] == null)
+            /*if (Session["username"] == null)
             {
                 Response.Redirect("LoginPage.aspx");
-            }
+            }*/
             //tablename = "modual01";
 
             tablename = Request.QueryString["tablename"];
@@ -57,9 +58,10 @@ namespace planUploadV5
 
             Label6.Text = "Welcome to "+tablename;
 
+            //sortdata();
 
             String mycon = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
-            String myquery = "SELECT * FROM " + tablename;
+            String myquery = "SELECT * FROM " + tablename + " ORDER BY module ASC, CONVERT(datetime, cut_date, 103) ASC";
             SqlConnection con = new SqlConnection(mycon);
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = myquery;
@@ -130,10 +132,11 @@ namespace planUploadV5
         {
             String module, material, fG_Referance, customer_Style, Color_Description, subcon_Type, description, fabric_Design, order_Reason,
                 special_Services, cpo, region_Country, name, season, external_Material_Group, customer, customer_Dept, sales_Order, item,
-                prod_order, so_qty, order_qty, smv, effi, emp, pcs_day, days, cut_date, startdate, finishdate, expected_prod_end_date,
-                deliv_date, del_status, cut_qty, in_qty, out_qty, fab_In_H_date, acc_In_H_date, qco, product_category_Name, gender,
+                prod_order, so_qty, order_qty, smv, effi, emp, pcs_day, days, 
+                del_status, cut_qty, in_qty, out_qty, qco, product_category_Name, gender,
                 relative_Similarity, remarks, l_Curve, planning_Fab, planning_acc, approval_DD, section;
-
+            String fab_In_H_date, acc_In_H_date;
+            DateTime cut_date, startdate, finishdate, expected_prod_end_date, deliv_date;
 
             if (FileUpload.HasFile)
             {
@@ -175,17 +178,18 @@ namespace planUploadV5
                         emp = dr[24].ToString();
                         pcs_day = dr[25].ToString();
                         days = dr[26].ToString();
-                        cut_date = dr[27].ToString();
-                        startdate = dr[28].ToString();
-                        finishdate = dr[29].ToString();
-                        expected_prod_end_date = dr[30].ToString();
-                        deliv_date = dr[31].ToString();
+                    // cut_date = DateTime.TryParseExact(dr[27].ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate) ? parsedDate : DateTime.MinValue;
+                        cut_date = DateTime.Parse(dr[27].ToString());
+                        startdate = DateTime.Parse(dr[28].ToString());
+                        finishdate = DateTime.Parse(dr[29].ToString());
+                        expected_prod_end_date = DateTime.Parse(dr[30].ToString()                                                               );
+                        deliv_date = DateTime.Parse(dr[31].ToString());
                         del_status = dr[32].ToString();
                         cut_qty = dr[33].ToString();
                         in_qty = dr[34].ToString();
                         out_qty = dr[35].ToString();
-                        fab_In_H_date = dr[36].ToString();
-                        acc_In_H_date = dr[37].ToString();
+                        fab_In_H_date = (dr[36].ToString());
+                        acc_In_H_date = (dr[37].ToString());
                         qco = dr[38].ToString();
                         product_category_Name = dr[39].ToString();
                         gender = dr[40].ToString();
@@ -203,13 +207,18 @@ namespace planUploadV5
                         deliv_date, del_status, cut_qty, in_qty, out_qty, fab_In_H_date, acc_In_H_date, qco, product_category_Name, gender,
                         relative_Similarity, remarks, l_Curve, planning_Fab, planning_acc, approval_DD, section);
 
-                    }
-                    Label3.Text = "Data Has Been Saved Successfully";
+
+                    //sortdata();
+                }
+               
+                Label3.Text = "Data Has Been Saved Successfully";
                     mycon.Close();
                     File.Delete(ExcelPath);
 
-                    // Rebind the data to the GridView
-                    GridView1.DataBind();
+               // sortdata();
+
+                // Rebind the data to the GridView
+                GridView1.DataBind();
 
 
                     // Refresh the page with the same query string parameter
@@ -221,10 +230,6 @@ namespace planUploadV5
                 Label3.Text = "Choose your file";
             }
 
-            
-
-
-               
         }
 
        
@@ -232,10 +237,12 @@ namespace planUploadV5
         protected void Delete_Upload_Click(object sender, EventArgs e)
         {
             String module, material, fG_Referance, customer_Style, Color_Description, subcon_Type, description, fabric_Design, order_Reason,
-                special_Services, cpo, region_Country, name, season, external_Material_Group, customer, customer_Dept, sales_Order, item,
-                prod_order, so_qty, order_qty, smv, effi, emp, pcs_day, days, cut_date, startdate, finishdate, expected_prod_end_date,
-                deliv_date, del_status, cut_qty, in_qty, out_qty, fab_In_H_date, acc_In_H_date, qco, product_category_Name, gender,
-                relative_Similarity, remarks, l_Curve, planning_Fab, planning_acc, approval_DD, section;
+                 special_Services, cpo, region_Country, name, season, external_Material_Group, customer, customer_Dept, sales_Order, item,
+                 prod_order, so_qty, order_qty, smv, effi, emp, pcs_day, days,
+                 del_status, cut_qty, in_qty, out_qty, qco, product_category_Name, gender,
+                 relative_Similarity, remarks, l_Curve, planning_Fab, planning_acc, approval_DD, section;
+            String fab_In_H_date, acc_In_H_date;
+            DateTime cut_date, startdate, finishdate, expected_prod_end_date, deliv_date;
 
             if (FileUpload2.HasFile)
             {
@@ -249,6 +256,7 @@ namespace planUploadV5
                 OleDbDataReader dr = cmd.ExecuteReader();
                 while (dr.Read())
                 {
+
                     module = dr[0].ToString();
                     material = dr[1].ToString();
                     fG_Referance = dr[2].ToString();
@@ -276,17 +284,18 @@ namespace planUploadV5
                     emp = dr[24].ToString();
                     pcs_day = dr[25].ToString();
                     days = dr[26].ToString();
-                    cut_date = dr[27].ToString();
-                    startdate = dr[28].ToString();
-                    finishdate = dr[29].ToString();
-                    expected_prod_end_date = dr[30].ToString();
-                    deliv_date = dr[31].ToString();
+                    // cut_date = DateTime.TryParseExact(dr[27].ToString(), "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime parsedDate) ? parsedDate : DateTime.MinValue;
+                    cut_date = DateTime.Parse(dr[27].ToString());
+                    startdate = DateTime.Parse(dr[28].ToString());
+                    finishdate = DateTime.Parse(dr[29].ToString());
+                    expected_prod_end_date = DateTime.Parse(dr[30].ToString());
+                    deliv_date = DateTime.Parse(dr[31].ToString());
                     del_status = dr[32].ToString();
                     cut_qty = dr[33].ToString();
                     in_qty = dr[34].ToString();
                     out_qty = dr[35].ToString();
-                    fab_In_H_date = dr[36].ToString();
-                    acc_In_H_date = dr[37].ToString();
+                    fab_In_H_date = (dr[36].ToString());
+                    acc_In_H_date = (dr[37].ToString());
                     qco = dr[38].ToString();
                     product_category_Name = dr[39].ToString();
                     gender = dr[40].ToString();
@@ -297,7 +306,7 @@ namespace planUploadV5
                     planning_acc = dr[45].ToString();
                     approval_DD = dr[46].ToString();
                     section = dr[47].ToString();
-                    //UpdateDatabase(rollno, sname, fname, mname);
+
                     deletedata(module, material, fG_Referance, customer_Style, Color_Description, subcon_Type, description, fabric_Design, order_Reason,
                     special_Services, cpo, region_Country, name, season, external_Material_Group, customer, customer_Dept, sales_Order, item,
                     prod_order, so_qty, order_qty, smv, effi, emp, pcs_day, days, cut_date, startdate, finishdate, expected_prod_end_date,
@@ -308,7 +317,7 @@ namespace planUploadV5
                 }
                 dr.Close();
                 Label5.Text = "Data Has Been Deleted Successfully";
-
+                //sortdata();
 
                 ///insert////////////////////////////////////////////////////////////
                 OleDbDataReader dr1 = cmd.ExecuteReader();
@@ -341,11 +350,11 @@ namespace planUploadV5
                     emp = dr1[24].ToString();
                     pcs_day = dr1[25].ToString();
                     days = dr1[26].ToString();
-                    cut_date = dr1[27].ToString();
-                    startdate = dr1[28].ToString();
-                    finishdate = dr1[29].ToString();
-                    expected_prod_end_date = dr1[30].ToString();
-                    deliv_date = dr1[31].ToString();
+                    cut_date = DateTime.Parse(dr1[27].ToString());
+                    startdate = DateTime.Parse(dr1[28].ToString());
+                    finishdate = DateTime.Parse(dr1[29].ToString());
+                    expected_prod_end_date = DateTime.Parse(dr1[30].ToString());
+                    deliv_date = DateTime.Parse(dr1[31].ToString());
                     del_status = dr1[32].ToString();
                     cut_qty = dr1[33].ToString();
                     in_qty = dr1[34].ToString();
@@ -362,31 +371,30 @@ namespace planUploadV5
                     planning_acc = dr1[45].ToString();
                     approval_DD = dr1[46].ToString();
                     section = dr1[47].ToString();
-
                     savedata(module, material, fG_Referance, customer_Style, Color_Description, subcon_Type, description, fabric_Design, order_Reason,
                     special_Services, cpo, region_Country, name, season, external_Material_Group, customer, customer_Dept, sales_Order, item,
                     prod_order, so_qty, order_qty, smv, effi, emp, pcs_day, days, cut_date, startdate, finishdate, expected_prod_end_date,
                     deliv_date, del_status, cut_qty, in_qty, out_qty, fab_In_H_date, acc_In_H_date, qco, product_category_Name, gender,
                     relative_Similarity, remarks, l_Curve, planning_Fab, planning_acc, approval_DD, section); //req....
+
+                   
                 }
                 dr1.Close();
                 Label3.Text = "Data Has Been Saved Successfully";
-
-                sortdata();
+                //sortdata();
 
                 OleDbDataAdapter da = new OleDbDataAdapter();
                 da.SelectCommand = cmd;
                 DataSet ds = new DataSet();
                 da.Fill(ds);
-                /*GridView.DataSource = ds.Tables[0];
-                GridView.DataBind();*/
-
+                //GridView.DataSource = ds.Tables[0];
+                //GridView.DataBind();
 
                 mycon.Close();
                 File.Delete(ExcelPath);
 
 
-
+                
                 // Rebind the data to the GridView
                 GridView1.DataBind();
 
@@ -410,8 +418,8 @@ namespace planUploadV5
             String subcon_Type1, String description1, String fabric_Design1, String order_Reason1, String special_Services1, String cpo1,
             String region_Country1, String name1, String season1, String external_Material_Group1, String customer1, String customer_Dept1,
             String sales_Order1, String item1, String prod_order1, String so_qty1, String order_qty1, String smv1, String effi1, String emp1,
-            String pcs_day1, String days1, String cut_date1, String startdate1, String finishdate1, String expected_prod_end_date1,
-            String deliv_date1, String del_status1, String cut_qty1, String in_qty1, String out_qty1, String fab_In_H_date1,
+            String pcs_day1, String days1, DateTime cut_date1, DateTime startdate1, DateTime finishdate1, DateTime expected_prod_end_date1,
+            DateTime deliv_date1, String del_status1, String cut_qty1, String in_qty1, String out_qty1, String fab_In_H_date1,
             String acc_In_H_date1, String qco1, String product_category_Name1, String gender1, String relative_Similarity1, String remarks1,
             String l_Curve1, String planning_Fab1, String planning_acc1, String approval_DD1, String section1)
         {
@@ -502,8 +510,8 @@ namespace planUploadV5
             String subcon_Type1, String description1, String fabric_Design1, String order_Reason1, String special_Services1, String cpo1,
             String region_Country1, String name1, String season1, String external_Material_Group1, String customer1, String customer_Dept1,
             String sales_Order1, String item1, String prod_order1, String so_qty1, String order_qty1, String smv1, String effi1, String emp1,
-            String pcs_day1, String days1, String cut_date1, String startdate1, String finishdate1, String expected_prod_end_date1,
-            String deliv_date1, String del_status1, String cut_qty1, String in_qty1, String out_qty1, String fab_In_H_date1,
+            String pcs_day1, String days1, DateTime cut_date1, DateTime startdate1, DateTime finishdate1, DateTime expected_prod_end_date1,
+            DateTime deliv_date1, String del_status1, String cut_qty1, String in_qty1, String out_qty1, String fab_In_H_date1,
             String acc_In_H_date1, String qco1, String product_category_Name1, String gender1, String relative_Similarity1, String remarks1,
             String l_Curve1, String planning_Fab1, String planning_acc1, String approval_DD1, String section1)
         {
@@ -522,16 +530,31 @@ namespace planUploadV5
         private void sortdata()
         {
 
-            String query1 = "SELECT * FROM " + tablename + " ORDER BY RIGHT(module, 3) ASC";
+            String query1 = "SELECT * FROM " + tablename + " ORDER BY module ASC, CONVERT(datetime, cut_date, 103) ASC";
             String mycon1 = "Data Source=DESKTOP-2KR4GNF\\SQLEXPRESS;Initial Catalog=planUpload;Integrated Security=True";
-            SqlConnection con1 = new SqlConnection(mycon1);
+            /*SqlConnection con1 = new SqlConnection(mycon1);
             con1.Open();
             SqlCommand cmd1 = new SqlCommand();
             cmd1.CommandText = query1;
             cmd1.Connection = con1;
-            cmd1.ExecuteNonQuery();
+            cmd1.ExecuteNonQuery();*/
+
+            
+
+            SqlConnection con1 = new SqlConnection(mycon1);
+            SqlCommand cmd1 = new SqlCommand();
+            cmd1.CommandText = mycon1;
+            cmd1.Connection = con1;
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd1;
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            GridView1.DataSource = ds;
+            GridView1.DataBind();
 
         }
+
+
 
         private void deleteTable()
         {
